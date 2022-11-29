@@ -15,6 +15,7 @@ import {
 const createStudent = (data) => async (dispatch) => {
   try {
     await axios.post("/student/add", data);
+    
     dispatch({ type: CREATE_STUDENT_SUCCESS, payload: { data } });
   } catch (error) {
     dispatch({ type: CREATE_STUDENT_FAIL, payload: [] });

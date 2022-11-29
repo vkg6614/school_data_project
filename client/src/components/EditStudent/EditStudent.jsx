@@ -29,8 +29,15 @@ export const EditStudent = () => {
 
   const handleInputsButton = (event) => {
     event.preventDefault();
-    dispatch(editStudentActions(studentList, id));
-    navigate("/");
+    if (
+      studentList.name &&
+      studentList.age &&
+      studentList.gender &&
+      studentList.fees
+    ) {
+      dispatch(editStudentActions(studentList, id));
+      navigate("/");
+    }
   };
 
   const handleInputBox = (valueEvent, nameEvent) => {

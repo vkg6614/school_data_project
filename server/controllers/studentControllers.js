@@ -26,7 +26,11 @@ class StudentControllers {
 
   static createStudent = async (req, res) => {
     try {
-      const student = await new Student(req.body).save();
+      if (req.body.gender === "") {
+        req.body.gender = "male";
+      }
+      // const student = await new Student(req.body).save();
+      const student = await Student.create(req.body);
       res.status(201).send(student);
     } catch (error) {
       console.log(error);

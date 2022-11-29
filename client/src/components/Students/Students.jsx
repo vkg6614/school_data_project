@@ -50,7 +50,6 @@ function Students() {
     dispatch(getStudentActions(id));
     navigate(`/student/edit/${id}`);
   };
-
   return (
     <Grid item lg={6} sm={12}>
       <Typography
