@@ -27,6 +27,8 @@ function AddStudent() {
     let errorsObj = {};
     if (!values.name) {
       errorsObj.name = "name is required";
+    } else if (values.name === [0 - 9]) {
+      errorsObj.name = "name cann't be in number";
     }
     if (!values.age) {
       errorsObj.age = "age is required";
@@ -42,7 +44,7 @@ function AddStudent() {
 
   const handleInputsButton = (event) => {
     setIsSubmit(true);
-    setErrorsValidate(validate(inputValues))
+    setErrorsValidate(validate(inputValues));
     if (
       inputValues.name &&
       inputValues.age &&
