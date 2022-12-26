@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, FormLabel, Grid, TextField, Typography } from "@mui/material";
+
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -7,13 +8,18 @@ import {
   getStudentsActions,
 } from "../../Redux/Actions/StudentActions";
 import swal from "sweetalert";
+import { useParams } from "react-router-dom";
 
 function AddStudent() {
+  let pathname = window.location.pathname.split("/");
+  let path = pathname[pathname.length - 1];
+  console.log(path);
+
   const dispatch = useDispatch();
   const [inputValues, setInputValues] = useState({
     name: "",
     age: "",
-    gender: "",
+    gender: "male",
     fees: "",
   });
   const [isSubmit, setIsSubmit] = useState(false);
@@ -25,32 +31,34 @@ function AddStudent() {
 
   const validate = (values) => {
     let errorsObj = {};
+    let namePattern = /^[a-z\s]{3,30}$/i;
+    let feesPattern = /[0-9]+/;
+
     if (!values.name) {
       errorsObj.name = "name is required";
-    } else if (values.name === [0 - 9]) {
-      errorsObj.name = "name cann't be in number";
+    } else if (!namePattern.test(values.name)) {
+      errorsObj.name =
+        "name cann't be special character or number or 3<name<30";
     }
     if (!values.age) {
       errorsObj.age = "age is required";
+    } else if (+values.age < 3 || +values.age > 27) {
+      errorsObj.age = "age should be between 3-27";
     }
-    if (!values.gender) {
-      errorsObj.gender = "gender is required";
-    }
+
     if (!values.fees) {
       errorsObj.fees = "fees is required";
+    } else if (+values.fees < 1500.5 || !feesPattern.test(+values.fees)) {
+      errorsObj.fees = "fees should be greater equal to 1500.5 or number";
     }
     return errorsObj;
   };
 
   const handleInputsButton = (event) => {
     setIsSubmit(true);
+    let errorsData = validate(inputValues);
     setErrorsValidate(validate(inputValues));
-    if (
-      inputValues.name &&
-      inputValues.age &&
-      inputValues.gender &&
-      inputValues.fees
-    ) {
+    if (Object.values(errorsData).length === 0) {
       dispatch(createStudent(inputValues));
       dispatch(getStudentsActions());
 
@@ -103,7 +111,6 @@ function AddStudent() {
         size="normal"
         fullWidth
       />
-
       <Typography
         variant="body2"
         color="red"
@@ -126,7 +133,6 @@ function AddStudent() {
         size="normal"
         fullWidth
       />
-
       <Typography
         variant="body2"
         color="red"
@@ -136,22 +142,23 @@ function AddStudent() {
       >
         {isSubmit && errorsValidate.age}
       </Typography>
-
       <FormLabel style={{ fontSize: "2rem", fontWeight: "bold" }}>
         Gender
       </FormLabel>
 
-      <TextField
+      <select
         onChange={(event) =>
           handleInputBox(event.target.value, event.target.id)
         }
+        style={{ marginTop: "8px", width: "100%", height: "50px" }}
         id="gender"
+        name="gender"
         value={inputValues.gender}
-        size="normal"
-        fullWidth
-        margin="dense"
-        style={{ marginTop: "8px" }}
-      />
+      >
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="others">Others</option>
+      </select>
 
       <Typography
         variant="body2"
@@ -162,11 +169,9 @@ function AddStudent() {
       >
         {isSubmit && errorsValidate.gender}
       </Typography>
-
       <FormLabel style={{ fontSize: "2rem", fontWeight: "bold" }}>
         Fees
       </FormLabel>
-
       <TextField
         onChange={(event) =>
           handleInputBox(event.target.value, event.target.id)
@@ -178,7 +183,6 @@ function AddStudent() {
         margin="dense"
         style={{ marginTop: "8px" }}
       />
-
       <Typography
         variant="body2"
         color="red"
@@ -188,7 +192,6 @@ function AddStudent() {
       >
         {isSubmit && errorsValidate.fees}
       </Typography>
-
       <Button
         type="button"
         variant="contained"

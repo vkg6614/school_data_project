@@ -14,8 +14,8 @@ import {
 
 const createStudent = (data) => async (dispatch) => {
   try {
-    await axios.post("/student/add", data);
-    
+    await axios.post("/api/student/add", data);
+
     dispatch({ type: CREATE_STUDENT_SUCCESS, payload: { data } });
   } catch (error) {
     dispatch({ type: CREATE_STUDENT_FAIL, payload: [] });
@@ -24,7 +24,7 @@ const createStudent = (data) => async (dispatch) => {
 
 const getStudentsActions = () => async (dispatch) => {
   try {
-    let { data, status } = await axios.get("/student/all");
+    let { data, status } = await axios.get("/api/student/all");
     dispatch({ type: GET_STUDENT_SUCCESS, payload: { data, status } });
   } catch (error) {
     dispatch({ type: GET_STUDENT_FAIL });
@@ -33,7 +33,7 @@ const getStudentsActions = () => async (dispatch) => {
 
 const getStudentActions = (id) => async (dispatch) => {
   try {
-    let { data, status } = await axios.get(`/student/single/${id}`);
+    let { data, status } = await axios.get(`/api/student/single/${id}`);
     dispatch({ type: GET_SINGLE_STUDENT_SUCCESS, payload: { data, status } });
   } catch (error) {
     dispatch({ type: GET_SINGLE_STUDENT_FAIL });
@@ -42,7 +42,7 @@ const getStudentActions = (id) => async (dispatch) => {
 
 const editStudentActions = (data, id) => async (dispatch) => {
   try {
-    await axios.put(`/student/edit/${id}`, data);
+    await axios.put(`/api/student/edit/${id}`, data);
     dispatch({ type: EDIT_STUDENT_SUCCESS, payload: { data } });
   } catch (error) {
     dispatch({ type: EDIT_STUDENT_FAIL });
@@ -51,7 +51,7 @@ const editStudentActions = (data, id) => async (dispatch) => {
 
 const deleteStudentActions = (id, studentLists) => async (dispatch) => {
   try {
-    await axios.delete(`/student/delete/${id}`);
+    await axios.delete(`/api/student/delete/${id}`);
 
     let studentList = [];
     studentLists.map((currElem) => {

@@ -10,7 +10,7 @@ import {
 export const EditStudent = () => {
   const student = useSelector((state) => state.studentReducers.studentList);
   const navigate = useNavigate();
-  const { id } = useParams();
+  let { id } = useParams();
   const dispatch = useDispatch();
 
   const [studentList, setStudentList] = useState("");

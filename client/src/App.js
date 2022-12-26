@@ -8,18 +8,20 @@ import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   return (
+    // <Route path='/class' element={()=><ClassComponent teacher={this.state.teachers} />} />
+
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route
             exact
             path="/"
-            element={<Navigate to="/student/add" />}
+            element={<Navigate to="/api/student/all" />}
           ></Route>
-          <Route exact path="/student/add" element={<Home />}></Route>
+          <Route exact path="/api/student/all" element={<Home />}></Route>
           <Route
             exact
-            path="/student/edit/:id"
+            path="/api/student/edit/:id"
             element={<EditStudent />}
           ></Route>
           <Route exact path="/redirect" element={<NotFound />}></Route>

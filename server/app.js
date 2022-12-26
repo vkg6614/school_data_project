@@ -9,7 +9,7 @@ app.use(express.json());
 
 const port = process.env.PORT || 4000;
 connectDB(process.env.DB_URL);
-app.use("/student", allStudent);
+app.use("/api/student", allStudent);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

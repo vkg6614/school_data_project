@@ -1,18 +1,6 @@
 import Student from "../models/studentModels.js";
 
 class StudentControllers {
-  static getAllStudents = async (req, res) => {
-    try {
-      let student = await Student.find();
-      student = student.map(({ name, age, gender, fees, _id }) => {
-        return { name, age, gender, fees: fees.toString(), _id };
-      });
-
-      res.status(200).send(student);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   static getStudent = async (req, res) => {
     try {
       const student = await Student.findById(req.params.id);
@@ -53,6 +41,19 @@ class StudentControllers {
     try {
       const student = await Student.findByIdAndDelete(req.params.id);
       res.status(204).send(student);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  static getAllStudents = async (req, res) => {
+    try {
+      let student = await Student.find();
+      student = student.map(({ name, age, gender, fees, _id }) => {
+        return { name, age, gender, fees: fees.toString(), _id };
+      });
+
+      res.status(200).send(student);
     } catch (error) {
       console.log(error);
     }
