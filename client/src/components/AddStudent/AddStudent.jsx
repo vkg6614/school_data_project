@@ -8,13 +8,8 @@ import {
   getStudentsActions,
 } from "../../Redux/Actions/StudentActions";
 import swal from "sweetalert";
-import { useParams } from "react-router-dom";
 
 function AddStudent() {
-  let pathname = window.location.pathname.split("/");
-  let path = pathname[pathname.length - 1];
-  console.log(path);
-
   const dispatch = useDispatch();
   const [inputValues, setInputValues] = useState({
     name: "",

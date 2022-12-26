@@ -18,7 +18,7 @@ function Students() {
   const [studentLists, setStudentLists] = useState([]);
   const navigate = useNavigate();
   const data = useSelector((state) => state.studentReducers.studentLists);
-  console.log(data, "d");
+
   useEffect(() => {
     setStudentLists(data);
   }, [data]);
